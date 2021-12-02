@@ -13,11 +13,12 @@ import dash_bootstrap_components as dbc
 import datetime
 from datetime import date
 import data
+import source
 
-info_url ='https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv'
-df = pd.read_csv(info_url)
+df = source.source_data()
 
 df = data.clean_df(df)
+
 deaths = data.get_col(df, 'total_deaths')
 cases = data.get_col(df, 'total_cases')
 new_cases = data.get_col(df, 'new_cases')
