@@ -27,7 +27,7 @@ total_cases_world = data.get_world(df,'total_cases')
 new_cases_world = data.get_world(df,'new_cases')
 
 button_group = dbc.ButtonGroup(
-    [dbc.Button("Learn More",href='https://www.who.int/emergencies/diseases/novel-coronavirus-2019'), dbc.Button("Github",href='https://ronanmccormack.ca')]
+    [dbc.Button("Learn More",href='https://www.who.int/emergencies/diseases/novel-coronavirus-2019'), dbc.Button("Github",href='https://github.com/ronanmccormack-ca/DAV2021-Mini-Project')]
 )
 
 app = dash.Dash(__name__,external_stylesheets=[dbc.themes.SKETCHY])
