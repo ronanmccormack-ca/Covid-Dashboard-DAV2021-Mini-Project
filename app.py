@@ -18,13 +18,13 @@ info_url ='https://github.com/owid/covid-19-data/raw/master/public/data/owid-cov
 df = pd.read_csv(info_url)
 
 df = data.clean_df(df)
-deaths = data.get_col(df,'total_deaths')
-cases = data.get_col(df,'total_cases')
-new_cases = data.get_col(df,'new_cases')
-new_deaths = data.get_col(df,'new_deaths')
+deaths = data.get_col(df, 'total_deaths')
+cases = data.get_col(df, 'total_cases')
+new_cases = data.get_col(df, 'new_cases')
+new_deaths = data.get_col(df, 'new_deaths')
 
-total_cases_world = data.get_world(df,'total_cases')
-new_cases_world = data.get_world(df,'new_cases')
+total_cases_world = data.get_world(df, 'total_cases')
+new_cases_world = data.get_world(df, 'new_cases')
 
 button_group = dbc.ButtonGroup(
     [dbc.Button("Learn More",href='https://www.who.int/emergencies/diseases/novel-coronavirus-2019'), dbc.Button("Github",href='https://github.com/ronanmccormack-ca/DAV2021-Mini-Project')]
