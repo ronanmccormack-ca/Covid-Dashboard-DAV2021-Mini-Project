@@ -13,9 +13,9 @@ import dash_bootstrap_components as dbc
 import datetime
 from datetime import date
 import data
-import source
 
-df = source.source_data()
+info_url ='https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv'
+df = pd.read_csv(info_url)
 
 df = data.clean_df(df)
 
