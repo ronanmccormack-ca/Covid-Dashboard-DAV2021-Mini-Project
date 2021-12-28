@@ -56,3 +56,24 @@ def get_world(df,col):
     total_cases_world = pd.DataFrame(continent_cases.groupby('continent')[col].sum())
 
     return total_cases_world
+
+def get_vac(df):
+    vac_df_max = pd.DataFrame(columns=df.columns)
+    for location in df['location'].unique():
+        result = df.loc[(df['location'] == location) & (
+                    df['date'] == df.loc[(df['location'] == location)]['date'].max())]
+        vac_df_max = pd.concat((vac_df_max, result))
+    vac_df_max = vac_df_max.fillna(0)
+    vac_df_max['date'] = pd.to_datetime(vac_df_max['date'])
+    date = vac_df_max['date'].max()
+    vac_cols = [x for x in vac_df_max.columns[7::]]
+    vac_cols.append('iso_code')
+    vac_cols.append('date')
+    vac_cols.append('total_vaccinations')
+    vac_df_max = vac_df_max.drop(columns=vac_cols)
+    vac_df_max = vac_df_max.set_index('location').T
+    vac_df_max = vac_df_max.astype(int)
+    vac_df_max = vac_df_max.rename(index={'people_vaccinated': "People Vaccinated",
+                                          'people_fully_vaccinated': "People Fully Vaccinated",
+                                          'total_boosters': "Total Boosters"})
+    return vac_df_max
