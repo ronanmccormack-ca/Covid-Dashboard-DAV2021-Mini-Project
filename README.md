@@ -1,14 +1,14 @@
 # COVID Dashboard Project
 
-This project is a COVID dashboard that collects, cleans, and displays COVID-19 data using Python's Pandas library for data manipulation and Python Dash for interactive data visualization. The entire dashboard can be run within a Jupyter Notebook environment.
+This project is a COVID dashboard that collects, cleans, and displays COVID-19 data using Python's Pandas library for data manipulation and Python Dash for interactive data visualization. The dashboard is designed to be displayed in a web browser.
 
 ## Project Overview
 
-The goal of this project is to create an interactive dashboard that provides insights into COVID-19 data. The project is designed to be easily runnable within a Jupyter Notebook, without the need for separate application deployment.
+The goal of this project is to create an interactive dashboard that provides insights into COVID-19 data. The dashboard is accessible through a web browser, making it easy to visualize the data and explore trends.
 
 ## Getting Started
 
-To run the COVID dashboard within a Jupyter Notebook, follow these steps:
+To access and interact with the COVID dashboard, follow these steps:
 
 1. Clone or download this repository to your local machine.
 
@@ -16,7 +16,7 @@ To run the COVID dashboard within a Jupyter Notebook, follow these steps:
 
 3. Run the notebook cells sequentially. The notebook includes code for data collection, cleaning, and creating the interactive dashboard using Python Dash.
 
-4. As you run the cells, the dashboard components will be displayed within the notebook itself.
+4. Once you run the necessary cells, the dashboard will be available for access in your web browser.
 
 ## Project Structure
 
