@@ -27,6 +27,6 @@ def process_data():
     # Converting the column 'date' to datetime
     df['date'] = pd.to_datetime(df['date'])
 
-    df = df.groupby(['date', 'location']).max().reset_index()
+    df = df.groupby(['continent','location','date']).sum().reset_index()
 
     return df

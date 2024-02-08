@@ -112,10 +112,10 @@ def update_output(dropdown_value):
     filtered_df = df[df['location'] == dropdown_value]
 
     # Find the maximum value in the 'total_cases' column
-    total_cases = filtered_df['total_cases'].max()
+    total_cases = filtered_df['new_cases'].sum()
 
     # Find the maximum value in the 'total_deaths' column
-    total_deaths = filtered_df['total_deaths'].max()
+    total_deaths = filtered_df['new_deaths'].sum()
 
     # Find the recent value in the 'new_cases' column
     new_cases = filtered_df['new_cases'].iloc[-1]
@@ -149,7 +149,7 @@ def update_output(dropdown_value):
         x=filtered_df['date'],
         y=filtered_df['total_deaths'],
         mode='lines',
-        name='Total Deahts',
+        name='Total Deaths',
         line=dict(color='red', width=1)
     ))
 
