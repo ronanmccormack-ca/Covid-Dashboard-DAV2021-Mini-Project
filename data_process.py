@@ -1,6 +1,6 @@
 import pandas as pd
 
-def process_data():
+def process_data(country):
     # Specify the dataset URL
     info_url = 'https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv'
 
@@ -10,12 +10,13 @@ def process_data():
     # Extract Columns for Visualization
     df = df[['continent', 'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths']]
 
+    df = df[df['location'] == country]
     # Specify the continents
-    continents_location = df[df['continent'].isna()]['location'].unique()
+    #continents_location = df[df['continent'].isna()]['location'].unique()
 
     # Loop over each continent and drop it from the DataFrame
-    for x in continents_location:
-        df = df.drop(df[df.location == x].index)
+    #for x in continents_location:
+    #    df = df.drop(df[df.location == x].index)
 
     df = df.fillna(0)
 
@@ -26,6 +27,25 @@ def process_data():
     # Converting the column 'date' to datetime
     df['date'] = pd.to_datetime(df['date'])
 
-    df = df.groupby(['continent','location','date']).sum().reset_index()
+    #df = df.groupby(['continent','location','date']).sum().reset_index()
 
     return df
+
+def get_locations():
+    # Specify the dataset URL
+    info_url = 'https://github.com/owid/covid-19-data/raw/master/public/data/owid-covid-data.csv'
+
+    # Read the dataset into a DataFrame
+    df = pd.read_csv(info_url)
+
+    # Extract Columns for Visualization
+    df = df[['continent', 'location']]
+
+    # Specify the continents
+    continents_location = df[df['continent'].isna()]['location'].unique()
+
+    # Loop over each continent and drop it from the DataFrame
+    for x in continents_location:
+        df = df.drop(df[df.location == x].index)
+
+    return df['location'].unique()

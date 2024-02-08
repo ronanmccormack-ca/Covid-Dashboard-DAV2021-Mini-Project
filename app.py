@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 import data_process
 import numpy as np
 
-df = data_process.process_data()
+#df = data_process.process_data()
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.ZEPHYR])
 
@@ -35,7 +35,7 @@ app.layout = html.Div(id='parent', children=[
         ]),
         dcc.Dropdown(
             id='dropdown',
-            options=[{'label': i, 'value': i} for i in np.sort(df['location'].unique())],
+            options=[{'label': i, 'value': i} for i in np.sort(data_process.get_locations())],
             value='Ireland',
             style={
                 'width': '90%',
@@ -108,20 +108,21 @@ app.layout = html.Div(id='parent', children=[
     [Input(component_id='dropdown', component_property='value')]
 )
 def update_output(dropdown_value):
+    df = data_process.process_data(dropdown_value)
     # Filter the DataFrame based on the selected dropdown value
-    filtered_df = df[df['location'] == dropdown_value]
+    #filtered_df = df[df['location'] == dropdown_value]
 
     # Find the maximum value in the 'total_cases' column
-    total_cases = filtered_df['new_cases'].sum()
+    total_cases = df['new_cases'].sum()
 
     # Find the maximum value in the 'total_deaths' column
-    total_deaths = filtered_df['new_deaths'].sum()
+    total_deaths = df['new_deaths'].sum()
 
     # Find the recent value in the 'new_cases' column
-    new_cases = filtered_df['new_cases'].iloc[-1]
+    new_cases = df['new_cases'].iloc[-1]
 
     # Find the recent value in the 'new_deaths' column
-    new_deaths = filtered_df['new_deaths'].iloc[-1]
+    new_deaths = df['new_deaths'].iloc[-1]
 
     # Format the numbers with commas
     total_cases = "{:,}".format(total_cases)
@@ -131,8 +132,8 @@ def update_output(dropdown_value):
 
     new_cases_fig = go.Figure()
     new_cases_fig.add_trace(go.Scatter(
-        x=filtered_df['date'],
-        y=filtered_df['total_cases'],
+        x=df['date'],
+        y=df['total_cases'],
         mode='lines',
         name='Total Cases',
         line=dict(color='black', width=1)
@@ -146,8 +147,8 @@ def update_output(dropdown_value):
 
     new_deaths_fig = go.Figure()
     new_deaths_fig.add_trace(go.Scatter(
-        x=filtered_df['date'],
-        y=filtered_df['total_deaths'],
+        x=df['date'],
+        y=df['total_deaths'],
         mode='lines',
         name='Total Deaths',
         line=dict(color='red', width=1)
