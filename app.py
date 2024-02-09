@@ -8,8 +8,6 @@ import dash_bootstrap_components as dbc
 import data_process
 import numpy as np
 
-#df = data_process.process_data()
-
 app = Dash(__name__,external_stylesheets=[dbc.themes.ZEPHYR])
 
 # Specifying the button group
@@ -107,10 +105,9 @@ app.layout = html.Div(id='parent', children=[
     (Output(component_id='top_continent_fig',component_property='figure')),
     [Input(component_id='dropdown', component_property='value')]
 )
+
 def update_output(dropdown_value):
     df = data_process.process_data(dropdown_value)
-    # Filter the DataFrame based on the selected dropdown value
-    #filtered_df = df[df['location'] == dropdown_value]
 
     # Find the maximum value in the 'total_cases' column
     total_cases = df['new_cases'].sum()
@@ -191,4 +188,4 @@ def update_output(dropdown_value):
     return total_cases,total_deaths, new_cases, new_deaths, new_cases_fig, new_deaths_fig, top_country_fig, top_continent_fig
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port='8080')
