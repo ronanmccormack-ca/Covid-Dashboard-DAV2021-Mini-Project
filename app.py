@@ -105,7 +105,6 @@ app.layout = html.Div(id='parent', children=[
     (Output(component_id='top_continent_fig',component_property='figure')),
     [Input(component_id='dropdown', component_property='value')]
 )
-
 def update_output(dropdown_value):
     df = data_process.process_data(dropdown_value)
 
@@ -188,4 +187,4 @@ def update_output(dropdown_value):
     return total_cases,total_deaths, new_cases, new_deaths, new_cases_fig, new_deaths_fig, top_country_fig, top_continent_fig
 
 if __name__ == '__main__':
-    app.run_server(port='8080')
+    app.run_server()
