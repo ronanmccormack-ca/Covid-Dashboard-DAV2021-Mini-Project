@@ -6,6 +6,12 @@ This project is a COVID dashboard that collects, cleans, and displays COVID-19 d
 
 The goal of this project is to create an interactive dashboard that provides insights into COVID-19 data. The dashboard is accessible through a web browser, making it easy to visualize the data and explore trends.
 
+## Dashboard Availability
+
+The Dashboard is available at the following link: [COVID Dashboard]([https://covidapi-zm9v.onrender.com](https://covid-dashboard-e74t.onrender.com))
+
+You can access the Jupyter Notebook file detailed in the Getting Started section using this URL.
+
 ## Getting Started
 
 To access and interact with the COVID dashboard, follow these steps:
