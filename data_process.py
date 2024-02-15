@@ -7,7 +7,10 @@ def get_country_data(country_name):
 
     if response.status_code == 200:
         data = response.json()
-        return pd.DataFrame(data)
+        data = pd.DataFrame(data)
+        data['date'] = pd.to_datetime(data['date']).dt.date
+        data = data.sort_values(by='date', ascending=True)
+        return data
     else:
         print(f"Failed to retrieve data: {response.status_code}")
         return pd.DataFrame()  # Return an empty DataFrame in case of failure
