@@ -187,4 +187,4 @@ def update_output(dropdown_value):
     return total_cases,total_deaths, new_cases, new_deaths, new_cases_fig, new_deaths_fig, top_country_fig, top_continent_fig
 
 if __name__ == '__main__':
-    app.run()
+    app.run_server()
