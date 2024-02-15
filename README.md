@@ -34,4 +34,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or need further information, you can reach out to us at [info@ronanmccormack.ca](mailto:info@ronanmccormack.ca).
+If you have any questions or need further information, you can reach out to us at [info@datahouse.ca](mailto:info@datahouse.ca).
