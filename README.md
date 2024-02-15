@@ -8,7 +8,7 @@ The goal of this project is to create an interactive dashboard that provides ins
 
 ## Dashboard Availability
 
-The Dashboard is available at the following link: [COVID Dashboard]([https://covidapi-zm9v.onrender.com](https://covid-dashboard-e74t.onrender.com))
+The Dashboard is available at the following link: [COVID Dashboard](https://covid-dashboard-e74t.onrender.com)
 
 You can access the Jupyter Notebook file detailed in the Getting Started section using this URL.
 
