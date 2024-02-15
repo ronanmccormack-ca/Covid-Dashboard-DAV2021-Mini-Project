@@ -9,6 +9,7 @@ import data_process
 import numpy as np
 
 app = Dash(__name__,external_stylesheets=[dbc.themes.ZEPHYR])
+server = app.server
 
 # Specifying the button group
 button_groups = dbc.ButtonGroup(
