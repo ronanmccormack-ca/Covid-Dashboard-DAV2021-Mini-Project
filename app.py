@@ -33,7 +33,7 @@ app.layout = html.Div(id='parent', children=[
         ]),
         dcc.Dropdown(
             id='dropdown',
-            options=[{'label': i, 'value': i} for i in np.sort(data_process.get_locations())],
+            options=[{'label': i, 'value': i} for i in data_process.get_locations()],
             value='Ireland',
             style={
                 'width': '90%',
@@ -106,7 +106,7 @@ app.layout = html.Div(id='parent', children=[
     [Input(component_id='dropdown', component_property='value')]
 )
 def update_output(dropdown_value):
-    df = data_process.process_data(dropdown_value)
+    df = data_process.get_country_data(dropdown_value)
 
     # Find the maximum value in the 'total_cases' column
     total_cases = df['new_cases'].sum()
@@ -155,12 +155,12 @@ def update_output(dropdown_value):
         xaxis_title='Date',
         yaxis_title='Confirmed Deaths'
     )
-    top_case_country = list(df.groupby('location').max().sort_values(by='total_cases', ascending=False).reset_index().head()[
-        'location'])
+    top_case_country = list(df.groupby('name').max().sort_values(by='total_cases', ascending=False).reset_index().head()[
+        'name'])
     top_case_country.append(dropdown_value)
     top_country_fig = go.Figure()
     for country in set(top_case_country):
-        temp_df = df[df['location'] == country]
+        temp_df = df[df['name'] == country]
         top_country_fig.add_trace(go.Scatter(x=temp_df['date'], y=temp_df['total_cases'], \
                                   name=country, ))
 
