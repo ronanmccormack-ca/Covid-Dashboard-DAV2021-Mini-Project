@@ -45,6 +45,13 @@ app.layout = html.Div(id='parent', children=[
                     options=[{'label': i, 'value': i} for i in data_process.get_locations()],
                     value='Canada',
                 ), width=10, lg=6, md=8, className="my-3 mx-auto"  # Adjusted for responsiveness
+            ),
+            dbc.Col(
+                dcc.Dropdown(
+                    id='date_dropdown',
+                    options=[{'label': i, 'value': i} for i in data_process.get_dates()],
+                    value=data_process.get_dates().max()
+                ), width=10, lg=6, md=8, className="my-3 mx-auto"  # Adjusted for responsiveness
             )
         ])
     ]),
@@ -86,6 +93,42 @@ app.layout = html.Div(id='parent', children=[
                 ], color="primary", outline=True),
                 width=12, lg=3, className='mb-4'
             ),
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.P("Total Vaccinations", className='card-title text-center'),
+                        html.H5(id='total_pop_vac', className='card-text text-center'),
+                    ]),
+                ], color="primary", outline=True),
+                width=12, lg=3, className='mb-4'
+            ),
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.P("People Fully Vaccinated", className='card-title text-center'),
+                        html.H5(id='total_full_vac', className='card-text text-center'),
+                    ]),
+                ], color="primary", outline=True),
+                width=12, lg=3, className='mb-4'
+            ),
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.P("People Vaccinated", className='card-title text-center'),
+                        html.H5(id='total_vac', className='card-text text-center'),
+                    ]),
+                ], color="primary", outline=True),
+                width=12, lg=3, className='mb-4'
+            ),
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.P("Total Boosters", className='card-title text-center'),
+                        html.H5(id='total_boost', className='card-text text-center'),
+                    ]),
+                ], color="primary", outline=True),
+                width=12, lg=3, className='mb-4'
+            ),
         ]),
     ]),
     html.Div([
@@ -105,14 +148,19 @@ app.layout = html.Div(id='parent', children=[
     (Output(component_id='total_deaths', component_property='children')),
     (Output(component_id='new_cases', component_property='children')),
     (Output(component_id='new_deaths', component_property='children')),
+    (Output(component_id='total_pop_vac', component_property='children')),
+    (Output(component_id='total_full_vac', component_property='children')),
+    (Output(component_id='total_vac', component_property='children')),
+    (Output(component_id='total_boost', component_property='children')),
     (Output(component_id='new_case_fig',component_property='figure')),
     (Output(component_id='new_deaths_fig',component_property='figure')),
     (Output(component_id='total_case_fig',component_property='figure')),
     (Output(component_id='total_deaths_fig',component_property='figure')),
-    [Input(component_id='dropdown', component_property='value')]
+    [Input(component_id='dropdown', component_property='value'),
+    Input(component_id='date_dropdown', component_property='value')]
 )
-def update_output(dropdown_value):
-    df = data_process.get_country_data(dropdown_value)
+def update_output(dropdown_value, dropdown_date):
+    df = data_process.get_country_data(dropdown_value,dropdown_date)
 
     # Find the maximum value in the 'total_cases' column
     total_cases = df['new_cases'].sum()
@@ -126,11 +174,27 @@ def update_output(dropdown_value):
     # Find the recent value in the 'new_deaths' column
     new_deaths = df['new_deaths'].iloc[-1]
 
+    # Find the recent value in the 'total_vaccinations' column
+    total_pop_vac = df['total_vaccinations'].iloc[-1]
+
+    # Find the recent value in the 'people_fully_vaccinated' column
+    total_full_vac = df['people_fully_vaccinated'].iloc[-1]
+
+    # Find the recent value in the 'people_vaccinated' column
+    total_vac = df['people_vaccinated'].iloc[-1]
+
+    # Find the recent value in the 'total_boosters' column
+    total_boost = df['total_boosters'].iloc[-1]
+
     # Format the numbers with commas
     total_cases = "{:,}".format(total_cases)
     total_deaths = "{:,}".format(total_deaths)
     new_cases = "{:,}".format(new_cases)
     new_deaths = "{:,}".format(new_deaths)
+    total_pop_vac = "{:,}".format(total_pop_vac)
+    total_full_vac = "{:,}".format(total_full_vac)
+    total_vac = "{:,}".format(total_vac)
+    total_boost = "{:,}".format(total_boost)
 
     new_cases_fig = go.Figure()
     new_cases_fig.add_trace(go.Scatter(
@@ -191,9 +255,8 @@ def update_output(dropdown_value):
         xaxis_title='Date',
         yaxis_title='Total Deaths'
     )
-
     # Return the result to be displayed in the output component
-    return total_cases,total_deaths, new_cases, new_deaths, new_cases_fig, new_deaths_fig, total_cases_fig, total_deaths_fig
+    return total_cases, total_deaths, new_cases, new_deaths, total_pop_vac, total_full_vac, total_vac, total_boost, new_cases_fig, new_deaths_fig, total_cases_fig, total_deaths_fig
 
 if __name__ == '__main__':
     app.run_server()
