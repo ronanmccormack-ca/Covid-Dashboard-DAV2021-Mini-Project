@@ -11,6 +11,7 @@ def get_country_data(country_name, query_date):
         data = response.json()
         data = pd.DataFrame(data)
         data['date'] = pd.to_datetime(data['date']).dt.date
+        data = data[data['new_cases'] > 0]
         data = data.sort_values(by='date', ascending=True)
         return data
     else:
