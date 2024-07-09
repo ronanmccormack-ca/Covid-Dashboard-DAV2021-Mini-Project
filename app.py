@@ -50,7 +50,7 @@ app.layout = html.Div(id='parent', children=[
                 dcc.Dropdown(
                     id='date_dropdown',
                     options=[{'label': i, 'value': i} for i in data_process.get_dates()],
-                    value=data_process.get_dates().max()
+                    value=max(data_process.get_dates())
                 ), width=10, lg=6, md=8, className="my-3 mx-auto"  # Adjusted for responsiveness
             )
         ])
